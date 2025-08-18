@@ -1,0 +1,91 @@
+site_name: MLOps Management System
+site_description: Comprehensive machine learning operations platform documentation
+site_author: MLOps Team
+site_url: https://yourdomain.github.io/mlops-management-system
+
+# Repository
+repo_name: mlops-management-system
+repo_url: https://github.com/yourusername/mlops-management-system
+
+# Configuration
+theme:
+  name: material
+  palette:
+    # Palette toggle for dark mode
+    - scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for light mode
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - toc.follow
+    - content.code.copy
+    - content.code.annotate
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - toc:
+      permalink: true
+  - tables
+  - attr_list
+  - md_in_html
+
+# Navigation
+nav:
+  - Home: index.md
+  - Architecture:
+    - Overview: architecture/index.md
+  - Components:
+    - Overview: components/index.md
+  - Workflows:
+    - ML Lifecycle: workflows/ml-lifecycle.md
+  - Development:
+    - Documentation Guide: development/index.md
+
+# Plugins
+plugins:
+  - search
+  - mermaid2
+
+# Extra
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/yourusername/mlops-management-system
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/r/yourusername/mlops-management-system
+  generator: false
+
+# Custom CSS
+extra_css:
+  - stylesheets/extra.css

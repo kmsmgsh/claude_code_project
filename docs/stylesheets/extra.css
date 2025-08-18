@@ -1,0 +1,48 @@
+/* Custom styles for MLOps documentation */
+:root {
+  --md-primary-fg-color:        #2196F3;
+  --md-primary-fg-color--light: #42A5F5;
+  --md-primary-fg-color--dark:  #1976D2;
+}
+
+/* Custom styling for architecture diagrams */
+.architecture-diagram {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+/* Component cards styling */
+.component-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.component-card {
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.2rem;
+  padding: 1rem;
+  background: var(--md-code-bg-color);
+}
+
+.component-card h3 {
+  margin-top: 0;
+  color: var(--md-primary-fg-color);
+}
+
+/* Workflow diagram enhancements */
+.mermaid {
+  text-align: center;
+}
+
+/* Technology stack badges */
+.tech-badge {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  background: var(--md-primary-fg-color--light);
+  color: white;
+  border-radius: 0.2rem;
+  font-size: 0.8rem;
+  margin: 0.2rem;
+}
