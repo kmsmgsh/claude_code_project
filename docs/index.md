@@ -2,7 +2,97 @@
 
 Welcome to the **MLOps Management System** - a comprehensive platform for end-to-end machine learning operations, from data ingestion to model deployment and monitoring.
 
-![MLOps Overview](https://via.placeholder.com/800x300/2196F3/FFFFFF?text=MLOps+Management+System)
+<div class="hero-logo">
+  <svg width="600" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background gradient -->
+    <defs>
+      <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#1976D2;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#42A5F5;stop-opacity:1" />
+      </linearGradient>
+      <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#e3f2fd;stop-opacity:1" />
+      </linearGradient>
+      <!-- Animation definitions -->
+      <style>
+        .pipeline-flow { animation: flow 3s ease-in-out infinite; }
+        .ml-gear { animation: rotate 4s linear infinite; }
+        .data-dot { animation: pulse 2s ease-in-out infinite; }
+        @keyframes flow {
+          0%, 100% { opacity: 0.3; transform: translateX(-10px); }
+          50% { opacity: 1; transform: translateX(10px); }
+        }
+        @keyframes rotate {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        @keyframes pulse {
+          0%, 100% { r: 3; opacity: 0.7; }
+          50% { r: 5; opacity: 1; }
+        }
+      </style>
+    </defs>
+    
+    <!-- Background -->
+    <rect width="600" height="200" fill="url(#bgGradient)" rx="10"/>
+    
+    <!-- ML Pipeline visualization -->
+    <g transform="translate(50, 50)">
+      <!-- Data flow arrows -->
+      <path class="pipeline-flow" d="M20 50 L80 50" stroke="#ffffff" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+      <path class="pipeline-flow" d="M120 50 L180 50" stroke="#ffffff" stroke-width="2" fill="none" marker-end="url(#arrow)" style="animation-delay: 0.5s"/>
+      <path class="pipeline-flow" d="M220 50 L280 50" stroke="#ffffff" stroke-width="2" fill="none" marker-end="url(#arrow)" style="animation-delay: 1s"/>
+      <path class="pipeline-flow" d="M320 50 L380 50" stroke="#ffffff" stroke-width="2" fill="none" marker-end="url(#arrow)" style="animation-delay: 1.5s"/>
+      
+      <!-- Arrow marker -->
+      <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="#ffffff"/>
+        </marker>
+      </defs>
+      
+      <!-- Pipeline stages -->
+      <circle cx="20" cy="50" r="15" fill="#ffffff" opacity="0.9"/>
+      <text x="20" y="55" text-anchor="middle" fill="#1976D2" font-size="10" font-weight="bold">DATA</text>
+      
+      <rect x="75" y="35" width="30" height="30" fill="#ffffff" opacity="0.9" rx="5"/>
+      <circle cx="90" cy="50" r="8" fill="none" stroke="#1976D2" stroke-width="2" class="ml-gear"/>
+      <circle cx="90" cy="50" r="4" fill="#1976D2"/>
+      
+      <circle cx="180" cy="50" r="15" fill="#ffffff" opacity="0.9"/>
+      <text x="180" y="55" text-anchor="middle" fill="#1976D2" font-size="8" font-weight="bold">TRAIN</text>
+      
+      <rect x="265" y="35" width="30" height="30" fill="#ffffff" opacity="0.9" rx="5"/>
+      <circle cx="280" cy="50" r="8" fill="none" stroke="#1976D2" stroke-width="2" class="ml-gear" style="animation-delay: 2s"/>
+      <circle cx="280" cy="50" r="4" fill="#1976D2"/>
+      
+      <circle cx="380" cy="50" r="15" fill="#ffffff" opacity="0.9"/>
+      <text x="380" y="55" text-anchor="middle" fill="#1976D2" font-size="8" font-weight="bold">SERVE</text>
+      
+      <!-- Animated data points -->
+      <circle class="data-dot" cx="50" cy="25" fill="#ffffff"/>
+      <circle class="data-dot" cx="150" cy="75" fill="#ffffff" style="animation-delay: 0.7s"/>
+      <circle class="data-dot" cx="250" cy="25" fill="#ffffff" style="animation-delay: 1.4s"/>
+      <circle class="data-dot" cx="350" cy="75" fill="#ffffff" style="animation-delay: 2.1s"/>
+    </g>
+    
+    <!-- Main title -->
+    <text x="300" y="130" text-anchor="middle" fill="url(#textGradient)" font-size="24" font-weight="bold" font-family="Arial, sans-serif">
+      MLOps Management System
+    </text>
+    
+    <!-- Subtitle -->
+    <text x="300" y="155" text-anchor="middle" fill="#e3f2fd" font-size="14" font-family="Arial, sans-serif">
+      End-to-End Machine Learning Operations Platform
+    </text>
+    
+    <!-- Decorative elements -->
+    <circle cx="480" cy="40" r="2" fill="#ffffff" opacity="0.5"/>
+    <circle cx="500" cy="60" r="1.5" fill="#ffffff" opacity="0.7"/>
+    <circle cx="520" cy="45" r="2.5" fill="#ffffff" opacity="0.4"/>
+  </svg>
+</div>
 
 ## 🚀 What is MLOps Management System?
 
