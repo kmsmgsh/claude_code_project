@@ -81,9 +81,12 @@ class MetadataBackend(ABC):
 - Human-readable format
 - Simple file-based persistence
 
-#### `DatabaseMetadataBackend` 🚧 Planned
-- SQL database storage for production
-- Better querying and indexing capabilities
+#### `DatabaseMetadataBackend` ✅ Implemented
+- **SQLite database** storage with raw SQL
+- **PostgreSQL/MySQL ready** - same schema, different drivers
+- **Advanced querying** capabilities with indexes
+- **Migration system** for schema evolution
+- **Production-ready** with transaction safety
 
 ### 3. Model Registry
 
@@ -158,15 +161,24 @@ for name, versions in all_models.items():
         print(f"    Tags: {version_info['tags']}")
 ```
 
-### Custom Storage Configuration
+### Backend Configuration Options
 
 ```python
-from model_management import ModelRegistry, LocalStorageBackend, JSONMetadataBackend
+# Option 1: JSON metadata (simple, human-readable)
+registry = create_registry("local", 
+                          path="./models", 
+                          metadata_path="./models/registry.json")
 
-# Custom backend configuration
+# Option 2: SQLite database (production-ready, queryable)
+registry = create_registry("database", 
+                          path="./models", 
+                          db_path="./models/registry.db")
+
+# Option 3: Custom backend configuration
+from model_management import ModelRegistry, LocalStorageBackend, DatabaseMetadataBackend
+
 storage = LocalStorageBackend("/custom/model/path")
-metadata = JSONMetadataBackend("/custom/metadata.json")
-
+metadata = DatabaseMetadataBackend("/custom/registry.db")
 registry = ModelRegistry(storage, metadata)
 ```
 
@@ -177,20 +189,23 @@ registry = ModelRegistry(storage, metadata)
 The `create_registry()` function provides easy configuration:
 
 ```python
-# Local storage (default)
+# JSON metadata backend (default)
 registry = create_registry("local")
 
-# Custom local path
-registry = create_registry("local", path="/my/models", metadata_path="/my/registry.json")
+# SQLite database backend 
+registry = create_registry("database")
 
-# Future: S3 storage
+# Custom paths
+registry = create_registry("local", path="/my/models", metadata_path="/my/registry.json")
+registry = create_registry("database", path="/my/models", db_path="/my/registry.db")
+
+# Future: Cloud storage
 # registry = create_registry("s3", bucket="my-models", region="us-east-1")
 ```
 
-## 📁 File Structure
+## 📁 Storage Structure
 
-The model registry creates the following structure:
-
+### JSON Backend Structure
 ```
 models/
 ├── registry.json                 # Metadata file
@@ -202,6 +217,53 @@ models/
 └── classifier/
     └── v1/
         └── model.pkl             # Classifier model
+```
+
+### Database Backend Structure  
+```
+models/
+├── registry.db                   # SQLite database
+├── linear_model/
+│   ├── v1/
+│   │   └── model.pkl             # Model file version 1
+│   └── v2/
+│       └── model.pkl             # Model file version 2
+└── classifier/
+    └── v1/
+        └── model.pkl             # Classifier model
+```
+
+### Database Schema
+```sql
+-- Models table (mr_models)
+CREATE TABLE mr_models (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE,
+    description TEXT,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+);
+
+-- Model versions table (mr_model_versions) 
+CREATE TABLE mr_model_versions (
+    id INTEGER PRIMARY KEY,
+    model_id INTEGER NOT NULL,
+    version TEXT NOT NULL,
+    description TEXT,
+    storage_path TEXT NOT NULL,
+    file_size_bytes INTEGER DEFAULT 0,
+    created_at TEXT NOT NULL,
+    FOREIGN KEY (model_id) REFERENCES mr_models(id) ON DELETE CASCADE
+);
+
+-- Model tags table (mr_model_tags)
+CREATE TABLE mr_model_tags (
+    id INTEGER PRIMARY KEY,
+    model_version_id INTEGER NOT NULL,
+    tag_key TEXT NOT NULL,
+    tag_value TEXT,
+    FOREIGN KEY (model_version_id) REFERENCES mr_model_versions(id) ON DELETE CASCADE
+);
 ```
 
 ### Metadata Format
@@ -228,13 +290,30 @@ The `registry.json` file contains structured metadata:
 
 ### ✅ Implemented Features
 
+#### Core Features
 - **Automatic Versioning**: Sequential version numbers (1, 2, 3...)
 - **Model Metadata**: Description, tags, creation time, file size
 - **Pluggable Storage**: Abstract backend system
 - **Version Management**: Load specific versions or latest
 - **Model Listing**: Browse all models and versions
-- **Local Storage**: Filesystem-based storage backend
-- **JSON Metadata**: File-based metadata storage
+
+#### Storage Backends
+- **Local Storage**: Filesystem-based model file storage
+- **S3 Storage**: Placeholder for cloud storage (planned)
+
+#### Metadata Backends  
+- **JSON Metadata**: File-based metadata storage (simple)
+- **SQLite Database**: Production-ready database storage
+- **Advanced Queries**: Statistics, tag searching, model filtering
+- **Migration System**: Schema versioning for database evolution
+- **Transaction Safety**: ACID compliance with proper error handling
+
+#### Database Features
+- **Raw SQL Implementation**: No ORM dependencies, full control
+- **Cross-Database Schema**: Compatible with SQLite/PostgreSQL/MySQL
+- **Performance Indexes**: Optimized for common query patterns
+- **Foreign Key Constraints**: Data integrity with cascade deletes
+- **Table Organization**: Prefixed tables (`mr_*`) for multi-domain support
 
 ### 🚧 Planned Features
 
@@ -263,33 +342,70 @@ except ValueError as e:
     print(f"Error: {e}")  # Model 'my_model' version '999' not found
 ```
 
-## 🧪 Testing
+## 🧪 Testing & Examples
 
-Run the example to test the module:
-
+### Basic JSON Backend Test
 ```bash
 python model_management/example.py
 ```
 
+### Database Backend Test
+```bash
+python model_management/database_example.py
+```
+
 Expected output:
 ```
-🚀 Model Registry Example
-==================================================
+🗄️ Model Registry Database Backend Example
+============================================================
 
-📝 Saving models...
+📊 Creating registry with SQLite database...
+✅ Database backend initialized
+
+💾 Saving models to database...
 ✅ Model 'linear_predictor' version 1 saved successfully
-✅ Model 'simple_classifier' version 1 saved successfully
 ✅ Model 'linear_predictor' version 2 saved successfully
+✅ Model 'binary_classifier' version 1 saved successfully
+✅ Model 'binary_classifier' version 2 saved successfully
 
-📋 Listing all models:
-🎯 linear_predictor:
-  v1: Simple linear function
-  v2: Improved linear function with new coefficients
+📊 Database Statistics:
+Total models: 2
+Total versions: 4
+Total size: 0.0 MB
 
-🎯 simple_classifier:
-  v1: Threshold-based classifier
+🔍 Searching by tags:
+Regression models: 2 found
+  linear_predictor v1: Original linear model
+  linear_predictor v2: Enhanced linear model with better coefficients
 
-✅ Example completed successfully!
+✅ Database backend test completed successfully!
+```
+
+### Advanced Database Queries
+
+The database backend supports advanced querying capabilities:
+
+```python
+from model_management import create_registry
+
+# Create database registry
+registry = create_registry("database")
+
+# Get database backend for advanced queries
+db_backend = registry.metadata_backend.backend
+
+# Get comprehensive statistics
+stats = db_backend.get_statistics()
+print(f"Total models: {stats['summary']['total_models']}")
+print(f"Total storage: {stats['summary']['total_size_mb']} MB")
+
+# Search models by tags
+regression_models = db_backend.find_models_by_tag("type", "regression")
+for model in regression_models:
+    print(f"{model['name']} v{model['version']}: {model['description']}")
+
+# Find models by author
+team_models = db_backend.find_models_by_tag("author", "team_a")
 ```
 
 ## 🚀 Next Steps

@@ -5,7 +5,7 @@ Can use different storage backends (local, S3, etc.)
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional
-from .storage_backends import StorageBackend, MetadataBackend, LocalStorageBackend, JSONMetadataBackend
+from .storage_backends import StorageBackend, MetadataBackend, LocalStorageBackend, JSONMetadataBackend, DatabaseMetadataBackend
 
 
 class ModelRegistry:
@@ -161,12 +161,15 @@ def create_registry(storage_type: str = "local", **kwargs) -> ModelRegistry:
     Factory function to create model registry with different backends
     
     Args:
-        storage_type: "local", "s3", etc.
+        storage_type: "local", "database", "s3", etc.
         **kwargs: Backend-specific configuration
     """
     if storage_type == "local":
         storage_backend = LocalStorageBackend(kwargs.get("path", "./models"))
         metadata_backend = JSONMetadataBackend(kwargs.get("metadata_path", "./models/registry.json"))
+    elif storage_type == "database":
+        storage_backend = LocalStorageBackend(kwargs.get("path", "./models"))
+        metadata_backend = DatabaseMetadataBackend(kwargs.get("db_path", "./models/registry.db"))
     elif storage_type == "s3":
         # TODO: Implement S3 backend
         raise NotImplementedError("S3 backend not implemented yet")

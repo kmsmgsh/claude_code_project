@@ -134,17 +134,33 @@ class JSONMetadataBackend(MetadataBackend):
 
 
 class DatabaseMetadataBackend(MetadataBackend):
-    """Database metadata backend (placeholder)"""
+    """Database metadata backend using SQLite"""
     
-    def __init__(self, connection_string: str):
-        self.connection_string = connection_string
-        # TODO: Initialize database connection
-        raise NotImplementedError("Database backend coming soon!")
+    def __init__(self, db_path: str = "./models/registry.db"):
+        from .database.database_manager import SQLiteMetadataBackend
+        self.backend = SQLiteMetadataBackend(db_path)
+        self._current_metadata = {}
     
     def save_metadata(self, metadata: Dict) -> None:
-        # TODO: Save to database
-        pass
+        """Save metadata - detect changes and update database"""
+        # Find new or updated model versions by comparing with current state
+        for model_name, versions in metadata.items():
+            if model_name not in self._current_metadata:
+                # New model - save all versions
+                for version_info in versions:
+                    self.backend.save_model_metadata(version_info)
+            else:
+                # Existing model - save only new versions
+                existing_versions = {v['version'] for v in self._current_metadata[model_name]}
+                for version_info in versions:
+                    if version_info['version'] not in existing_versions:
+                        self.backend.save_model_metadata(version_info)
+        
+        # Update our current state
+        self._current_metadata = metadata.copy()
     
     def load_metadata(self) -> Dict:
-        # TODO: Load from database
-        pass
+        """Load metadata from database"""
+        metadata = self.backend.load_metadata()
+        self._current_metadata = metadata
+        return metadata

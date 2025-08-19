@@ -120,28 +120,44 @@ The MLOps Management System is designed to provide comprehensive machine learnin
   </div>
 </div>
 
-## 🚀 Quick Start Example
+## 🚀 Quick Start Examples
 
-Try our **Model Management** module right now:
-
+### Basic Model Management
 ```python
 from model_management import create_registry
 
-# Create a model registry
+# JSON backend (simple)
 registry = create_registry("local")
 
-# Save a model with automatic versioning
+# Database backend (production-ready)
+registry = create_registry("database") 
+
+# Save a model with tags
 def my_model(x):
     return x * 2 + 1
 
-registry.save_model(my_model, "linear_model", "Simple predictor")
+registry.save_model(my_model, "linear_model", "Simple predictor",
+                   tags={"type": "regression", "author": "team_a"})
 
 # Load and use the model
 loaded_model = registry.load_model("linear_model")
 result = loaded_model(5)  # Returns 11
 ```
 
-[See full Model Management documentation →](components/model-management.md)
+### Advanced Database Queries
+```python
+# Get comprehensive statistics
+stats = registry.metadata_backend.backend.get_statistics()
+print(f"Total models: {stats['summary']['total_models']}")
+
+# Search models by tags
+regression_models = registry.metadata_backend.backend.find_models_by_tag("type", "regression")
+```
+
+**📖 Learn More:**
+- [Model Management Guide →](components/model-management.md)
+- [Database Design →](components/database-design.md) 
+- [Migration Guide →](development/migration-guide.md)
 
 ## 🏗️ System Architecture
 

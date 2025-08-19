@@ -63,18 +63,35 @@ The MLOps Management System consists of several key components, each responsible
 - **Features**:
   - ✅ Model versioning and metadata
   - ✅ Pluggable storage backends (Local, S3)
+  - ✅ Multiple metadata backends (JSON, SQLite Database)
   - ✅ Automatic version management
-  - ✅ Model tags and descriptions
+  - ✅ Model tags and advanced querying
   - ✅ Abstract storage layer design
-- **Technologies**: Custom Python implementation with abstract backends
-- **Storage Backends**: Local filesystem, S3 (planned)
+  - ✅ Production-ready database backend
+- **Technologies**: 
+  - Custom Python implementation with abstract backends
+  - Raw SQL implementation (no ORM dependencies)
+  - SQLite with PostgreSQL/MySQL compatibility
+- **Storage Options**:
+  - **Model Files**: Local filesystem, S3 (planned)  
+  - **Metadata**: JSON files or SQLite database
 - **Usage**:
   ```python
   from model_management import create_registry
   
+  # Simple JSON backend
   registry = create_registry("local")
-  registry.save_model(model, "my_model", "Description")
+  
+  # Production database backend  
+  registry = create_registry("database")
+  
+  registry.save_model(model, "my_model", "Description", 
+                      tags={"type": "classifier", "author": "team_a"})
   loaded_model = registry.load_model("my_model")
+  
+  # Advanced database queries
+  stats = registry.metadata_backend.backend.get_statistics()
+  models = registry.metadata_backend.backend.find_models_by_tag("type", "classifier")
   ```
 
 ## 3. Deployment & Serving Components
