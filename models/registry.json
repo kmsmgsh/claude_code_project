@@ -1,0 +1,39 @@
+{
+  "linear_predictor": [
+    {
+      "name": "linear_predictor",
+      "version": "1",
+      "description": "Simple linear function",
+      "tags": {
+        "type": "function",
+        "complexity": "low"
+      },
+      "created_at": "2025-08-19T13:52:40.501616",
+      "storage_path": "linear_predictor/v1/model.pkl",
+      "file_size": 40
+    },
+    {
+      "name": "linear_predictor",
+      "version": "2",
+      "description": "Improved linear function with new coefficients",
+      "tags": {},
+      "created_at": "2025-08-19T13:52:40.502274",
+      "storage_path": "linear_predictor/v2/model.pkl",
+      "file_size": 49
+    }
+  ],
+  "simple_classifier": [
+    {
+      "name": "simple_classifier",
+      "version": "1",
+      "description": "Threshold-based classifier",
+      "tags": {
+        "type": "classifier",
+        "threshold": 0.3
+      },
+      "created_at": "2025-08-19T13:52:40.501928",
+      "storage_path": "simple_classifier/v1/model.pkl",
+      "file_size": 72
+    }
+  ]
+}

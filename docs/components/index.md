@@ -58,15 +58,24 @@ The MLOps Management System consists of several key components, each responsible
 - **Technologies**: Kubeflow, Ray Train, Kubernetes Jobs
 - **API Endpoints**: `/api/v1/training/jobs`, `/api/v1/training/jobs/{id}/logs`
 
-### Model Registry
+### Model Registry ✅ **IMPLEMENTED**
 **Responsibility**: Centralized repository for trained models
 - **Features**:
-  - Model versioning and metadata
-  - Model lineage tracking
-  - Stage management (staging, production, archived)
-  - Model validation and testing
-- **Technologies**: MLflow Model Registry, DVC
-- **API Endpoints**: `/api/v1/models`, `/api/v1/models/{id}/versions`
+  - ✅ Model versioning and metadata
+  - ✅ Pluggable storage backends (Local, S3)
+  - ✅ Automatic version management
+  - ✅ Model tags and descriptions
+  - ✅ Abstract storage layer design
+- **Technologies**: Custom Python implementation with abstract backends
+- **Storage Backends**: Local filesystem, S3 (planned)
+- **Usage**:
+  ```python
+  from model_management import create_registry
+  
+  registry = create_registry("local")
+  registry.save_model(model, "my_model", "Description")
+  loaded_model = registry.load_model("my_model")
+  ```
 
 ## 3. Deployment & Serving Components
 

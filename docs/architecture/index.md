@@ -20,11 +20,16 @@ The MLOps Management System is designed to provide end-to-end machine learning l
          ┌─────────────────────────────────────────────────────┐
          │              Management Layer                        │
          │                                                     │
-         │ • Model Registry   • Experiment Tracking           │
+         │ • Model Registry ✅ • Experiment Tracking           │
          │ • Metadata Store   • Configuration Management      │
          │ • Monitoring       • Security & Access Control     │
          └─────────────────────────────────────────────────────┘
 ```
+
+### Implementation Status
+
+- ✅ **Model Registry**: Implemented with abstract storage backends
+- 🚧 **Other Components**: Planned for future implementation
 
 ## Core Principles
 

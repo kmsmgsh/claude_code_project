@@ -103,6 +103,10 @@ The MLOps Management System is designed to provide comprehensive machine learnin
 
 <div class="component-grid">
   <div class="component-card">
+    <h3>🎯 Model Management ✅</h3>
+    <p><strong>IMPLEMENTED:</strong> Centralized model registry with versioning and pluggable storage backends.</p>
+  </div>
+  <div class="component-card">
     <h3>🔄 End-to-End ML Pipeline</h3>
     <p>Seamless data flow from ingestion to model serving with automated orchestration.</p>
   </div>
@@ -114,11 +118,30 @@ The MLOps Management System is designed to provide comprehensive machine learnin
     <h3>☁️ Cloud-Native</h3>
     <p>Kubernetes-native with auto-scaling and multi-cloud support.</p>
   </div>
-  <div class="component-card">
-    <h3>🔒 Security First</h3>
-    <p>RBAC, audit logging, and comprehensive secret management.</p>
-  </div>
 </div>
+
+## 🚀 Quick Start Example
+
+Try our **Model Management** module right now:
+
+```python
+from model_management import create_registry
+
+# Create a model registry
+registry = create_registry("local")
+
+# Save a model with automatic versioning
+def my_model(x):
+    return x * 2 + 1
+
+registry.save_model(my_model, "linear_model", "Simple predictor")
+
+# Load and use the model
+loaded_model = registry.load_model("linear_model")
+result = loaded_model(5)  # Returns 11
+```
+
+[See full Model Management documentation →](components/model-management.md)
 
 ## 🏗️ System Architecture
 

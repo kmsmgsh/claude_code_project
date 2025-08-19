@@ -67,6 +67,7 @@ nav:
     - Overview: architecture/index.md
   - Components:
     - Overview: components/index.md
+    - Model Management: components/model-management.md
   - Workflows:
     - ML Lifecycle: workflows/ml-lifecycle.md
   - Development:
