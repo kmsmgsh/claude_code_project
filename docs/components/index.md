@@ -116,8 +116,35 @@ The MLOps Management System consists of several key components, each responsible
 - **Technologies**: Argo CD, Flagger, Kubernetes
 - **API Endpoints**: `/api/v1/deployments`, `/api/v1/deployments/{id}/status`
 
-### API Gateway
-**Responsibility**: Route and manage API requests
+### REST API Backend ✅ **IMPLEMENTED**
+**Responsibility**: HTTP access to model registry functionality
+- **Features**:
+  - ✅ View all models and metadata via HTTP
+  - ✅ Get model statistics and counts
+  - ✅ SQLite database integration
+  - ✅ Interactive API documentation (Swagger/ReDoc)
+  - ✅ JSON responses for easy integration
+- **Technologies**: FastAPI, Uvicorn, Pydantic
+- **API Endpoints**: 
+  - `GET /models` - List all models
+  - `GET /models/count` - Model count
+  - `GET /models/stats` - Database statistics
+  - `GET /docs` - Interactive documentation
+- **Usage**:
+  ```bash
+  # Start API server
+  cd api && python main.py
+  
+  # Test endpoints
+  curl http://localhost:8001/models
+  curl http://localhost:8001/models/count
+  
+  # Browser access
+  http://localhost:8001/docs
+  ```
+
+### API Gateway 🚧 **PLANNED**
+**Responsibility**: Route and manage API requests (production enhancement)
 - **Features**:
   - Request routing and load balancing
   - Authentication and authorization

@@ -10,7 +10,7 @@ The MLOps Management System is designed to provide end-to-end machine learning l
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │   Data Layer    │    │  Control Plane  │    │  Compute Plane  │
 │                 │    │                 │    │                 │
-│ • Data Sources  │    │ • API Gateway   │    │ • Training      │
+│ • Data Sources  │    │ • REST API ✅   │    │ • Training      │
 │ • Data Storage  │    │ • Orchestrator  │    │ • Inference     │
 │ • Feature Store │    │ • Scheduler     │    │ • Processing    │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
@@ -21,7 +21,7 @@ The MLOps Management System is designed to provide end-to-end machine learning l
          │              Management Layer                        │
          │                                                     │
          │ • Model Registry ✅ • Experiment Tracking           │
-         │ • Metadata Store   • Configuration Management      │
+         │ • SQLite Database ✅• Configuration Management      │
          │ • Monitoring       • Security & Access Control     │
          └─────────────────────────────────────────────────────┘
 ```
@@ -29,7 +29,23 @@ The MLOps Management System is designed to provide end-to-end machine learning l
 ### Implementation Status
 
 - ✅ **Model Registry**: Implemented with abstract storage backends
+- ✅ **SQLite Database**: Production-ready metadata storage
+- ✅ **REST API**: FastAPI backend for HTTP access
 - 🚧 **Other Components**: Planned for future implementation
+
+### Current System Flow
+
+```mermaid
+graph LR
+    A[HTTP Client] --> B[FastAPI :8001]
+    B --> C[ModelRegistry]
+    C --> D[SQLite Database]
+    C --> E[Model Files]
+    
+    F[Python Code] --> C
+    G[Browser] --> B
+    H[curl/Postman] --> B
+```
 
 ## Core Principles
 

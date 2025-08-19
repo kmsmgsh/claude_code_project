@@ -68,6 +68,7 @@ nav:
   - Components:
     - Overview: components/index.md
     - Model Management: components/model-management.md
+    - REST API: components/rest-api.md
     - Database Design: components/database-design.md
   - Workflows:
     - ML Lifecycle: workflows/ml-lifecycle.md

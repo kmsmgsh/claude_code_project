@@ -104,7 +104,7 @@ The MLOps Management System is designed to provide comprehensive machine learnin
 <div class="component-grid">
   <div class="component-card">
     <h3>🎯 Model Management ✅</h3>
-    <p><strong>IMPLEMENTED:</strong> Centralized model registry with versioning and pluggable storage backends.</p>
+    <p><strong>IMPLEMENTED:</strong> Centralized model registry with versioning, database storage, and REST API access.</p>
   </div>
   <div class="component-card">
     <h3>🔄 End-to-End ML Pipeline</h3>
@@ -154,8 +154,23 @@ print(f"Total models: {stats['summary']['total_models']}")
 regression_models = registry.metadata_backend.backend.find_models_by_tag("type", "regression")
 ```
 
+### REST API Access  
+```bash
+# Start the API server
+cd api && python main.py
+
+# Access via browser or curl
+curl http://localhost:8001/models
+curl http://localhost:8001/models/count
+curl http://localhost:8001/models/stats
+
+# Interactive docs
+http://localhost:8001/docs
+```
+
 **📖 Learn More:**
 - [Model Management Guide →](components/model-management.md)
+- [REST API Documentation →](components/rest-api.md)
 - [Database Design →](components/database-design.md) 
 - [Migration Guide →](development/migration-guide.md)
 
