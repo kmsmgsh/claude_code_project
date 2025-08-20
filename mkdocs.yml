@@ -65,9 +65,11 @@ nav:
   - Home: index.md
   - Architecture:
     - Overview: architecture/index.md
+    - Design Options: architecture/model-inference-design-options.md
   - Components:
     - Overview: components/index.md
     - Model Management: components/model-management.md
+    - Universal Inference API: components/universal-inference-api.md
     - REST API: components/rest-api.md
     - Database Design: components/database-design.md
   - Workflows:
