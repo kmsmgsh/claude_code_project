@@ -122,7 +122,7 @@ The MLOps Management System is designed to provide comprehensive machine learnin
 
 ## 🚀 Quick Start Examples
 
-### Basic Model Management
+### Model Registry
 ```python
 from model_management import create_registry
 
@@ -152,6 +152,25 @@ print(f"Total models: {stats['summary']['total_models']}")
 
 # Search models by tags
 regression_models = registry.metadata_backend.backend.find_models_by_tag("type", "regression")
+```
+
+### Universal Inference API
+```bash
+# Start inference server
+cd api && python main.py
+
+# Deploy a model for serving
+curl -X POST http://localhost:8001/deployments/deploy \
+  -H "Content-Type: application/json" \
+  -d '{"model_name": "binary_classifier", "version": "1"}'
+
+# Make predictions  
+curl -X POST http://localhost:8001/predict \
+  -H "Content-Type: application/json" \
+  -d '{"model_name": "binary_classifier", "input": [0.5, 0.8, 0.2]}'
+
+# Check deployed models
+curl http://localhost:8001/deployments
 ```
 
 ### REST API Access  

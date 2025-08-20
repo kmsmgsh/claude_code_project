@@ -116,6 +116,39 @@ The MLOps Management System consists of several key components, each responsible
 - **Technologies**: Argo CD, Flagger, Kubernetes
 - **API Endpoints**: `/api/v1/deployments`, `/api/v1/deployments/{id}/status`
 
+### Universal Inference API ✅ **IMPLEMENTED**
+**Responsibility**: Single endpoint model serving with deployment management
+- **Features**:
+  - ✅ Universal `/predict` endpoint for all models
+  - ✅ Explicit deployment/undeployment for memory control
+  - ✅ Model loading and caching management
+  - ✅ Memory usage monitoring with metrics
+  - ✅ Request tracking and performance stats
+  - ✅ Version-specific model serving
+  - ✅ Production-ready error handling
+- **Technologies**: FastAPI, Pydantic, psutil
+- **API Endpoints**: 
+  - `POST /deployments/deploy` - Deploy model to memory
+  - `POST /deployments/undeploy` - Remove model from memory
+  - `GET /deployments` - List deployed models
+  - `GET /deployments/status` - System status
+  - `POST /predict` - Universal inference endpoint
+- **Usage**:
+  ```bash
+  # Deploy model
+  curl -X POST http://localhost:8001/deployments/deploy \
+    -H "Content-Type: application/json" \
+    -d '{"model_name": "binary_classifier", "version": "1"}'
+  
+  # Make prediction  
+  curl -X POST http://localhost:8001/predict \
+    -H "Content-Type: application/json" \
+    -d '{"model_name": "binary_classifier", "input": [0.5, 0.8, 0.2]}'
+  
+  # Check deployments
+  curl http://localhost:8001/deployments
+  ```
+
 ### REST API Backend ✅ **IMPLEMENTED**
 **Responsibility**: HTTP access to model registry functionality
 - **Features**:

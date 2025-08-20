@@ -31,6 +31,8 @@ The MLOps Management System is designed to provide end-to-end machine learning l
 - ✅ **Model Registry**: Implemented with abstract storage backends
 - ✅ **SQLite Database**: Production-ready metadata storage
 - ✅ **REST API**: FastAPI backend for HTTP access
+- ✅ **Universal Inference API**: Implemented with deployment layer ([Demo](../components/universal-inference-api.md))
+- 🚧 **Architecture Review**: Two design options documented ([Design Options](model-inference-design-options.md))
 - 🚧 **Other Components**: Planned for future implementation
 
 ### Current System Flow
